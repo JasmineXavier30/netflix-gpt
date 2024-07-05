@@ -3,10 +3,12 @@ import Header from "./Header";
 import { validateSignInFormData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { BG_IMG, USER_PHOTO } from "../utils/constants";
 
 const Login = () => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
     const email = useRef(null);
@@ -27,8 +29,6 @@ const Login = () => {
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then(userCredential => {
                     const user = userCredential.user;
-                    console.log(user);
-                    navigate("/browse")
                 })
                 .catch(e => {
                     setErrorMsg(`${e.code}:${e.message}`);
@@ -41,10 +41,11 @@ const Login = () => {
                     console.log(user);
                     updateProfile(auth.currentUser, {
                         displayName: name.current.value,
-                        photoURL: "https://avatars.githubusercontent.com/u/80594667?v=4"
+                        photoURL: USER_PHOTO
                     })
                         .then(() => {
-                            navigate("/browse")
+                            const { uid, email, displayName, photoURL } = auth.currentUser;
+                            dispatch(addUser({ uid, email, displayName, photoURL }));
                         })
                 })
                 .catch(e => {
@@ -54,10 +55,10 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="">
             <Header />
-            <div className="absolute">
-                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg" alt="Background" />
+            <div className="absolute w-screen">
+                <img src={BG_IMG} alt="Background" className="" />
             </div>
             <form className="absolute w-3/12 p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded bg-opacity-80">
                 <h1 className="font-bold text-3xl py-4">{isSignInForm ? "Sign In" : "Sign Up"}</h1>

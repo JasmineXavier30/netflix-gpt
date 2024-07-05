@@ -1,26 +1,48 @@
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { addUser, removeUser } from "../utils/userSlice";
+import { NETFLIX_LOGO } from "../utils/constants";
 
 const Header = () => {
     const navigate = useNavigate();
-    const user = useSelector(store => store.userReducer)
+    const user = useSelector(store => store.userReducer);
+    const dispatch = useDispatch();
+
+    useEffect(() => { // called once during component mounting
+        // called when user sign up, sign in and sign out
+        const unSubscribe = onAuthStateChanged(auth, user => { // returns unSubscribe fn for cleaning
+            if (user) {
+                // user sign in
+                const { uid, email, displayName, photoURL } = user;
+                dispatch(addUser({ uid, email, displayName, photoURL })); // dispatch action to add user obj {}
+                navigate("/browse");
+            } else {
+                //sign out
+                dispatch(removeUser());
+                navigate("/");
+            }
+        });
+        // called when comp unmounts
+        return () => unSubscribe(); // cleaning event listener
+    }, []);
 
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
-                navigate("/")
             })
             .catch(e => {
                 console.log(e);
+                navigate("/error"); //TO DO
             })
     }
 
     return (
         <div className="absolute bg-gradient-to-b from-black px-8 py-4 w-screen z-10 flex justify-between">
             <div className="">
-                <img src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="Netflix Logo" className="w-56" />
+                <img src={NETFLIX_LOGO} alt="Netflix Logo" className="w-56" />
             </div>
             {user &&
                 <div className="flex">
