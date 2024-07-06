@@ -57,8 +57,8 @@ const Login = () => {
     return (
         <div className="">
             <Header />
-            <div className="absolute w-screen">
-                <img src={BG_IMG} alt="Background" className="" />
+            <div className="absolute">
+                <img src={BG_IMG} alt="Background" className=" w-screen h-screen" />
             </div>
             <form className="absolute w-3/12 p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded bg-opacity-80">
                 <h1 className="font-bold text-3xl py-4">{isSignInForm ? "Sign In" : "Sign Up"}</h1>
@@ -68,8 +68,8 @@ const Login = () => {
                 }
                 <input ref={email} type="text" placeholder="Email Address" className="p-2 my-4 w-full rounded bg-gray-700" />
                 <input ref={password} type="password" placeholder="Password" className="p-2 my-4 w-full rounded bg-gray-700" />
-                <p className="text-red-600 font-bold">{errorMsg}</p>
-                <button type="submit" className="p-2 my-4 bg-red-600 w-full rounded font-bold" onClick={handleSubmit}>{isSignInForm ? "Sign In" : "Sign Up"}</button>
+                <p className="text-red-800 font-bold">{errorMsg}</p>
+                <button type="submit" className="p-2 my-4 bg-red-800 w-full rounded font-bold hover:bg-opacity-80" onClick={handleSubmit}>{isSignInForm ? "Sign In" : "Sign Up"}</button>
                 <p className="p-2 cursor-pointer" onClick={toggleSignInForm}>{isSignInForm ? "New to Netflix? Sign Up Now" : "Already a member? Sign In Now"}</p>
             </form>
         </div>
