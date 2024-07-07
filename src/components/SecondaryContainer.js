@@ -3,7 +3,6 @@ import MovieList from "./MovieList";
 
 const SecondaryContainer = () => {
     const movies = useSelector(store => store.moviesReducer);
-    console.log("movies.popularMovies:::", movies.popularMovies)
     return (
         movies &&
         <div className="bg-black">

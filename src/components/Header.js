@@ -64,7 +64,7 @@ const Header = () => {
                         <div className="mx-4 mt-2">
                             <select className=" text-white bg-gray-500 font-bold rounded p-3 hover:bg-opacity-80" onChange={handleLangSelect}>
                                 {
-                                    SUPPORTED_LANGS.map(x => <option value={x.id}>{x.name}</option>)
+                                    SUPPORTED_LANGS.map(x => <option key={x.id} value={x.id}>{x.name}</option>)
                                 }
                             </select>
                         </div>

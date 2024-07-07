@@ -5,8 +5,8 @@ import { BG_IMG } from '../utils/constants';
 
 function GPTSearchPage(props) {
     return (
-        <div>
-            <div className="absolute -z-10">
+        <div className=''>
+            <div className="fixed -z-10 ">
                 <img src={BG_IMG} alt="Background" className=" w-screen h-screen" />
             </div>
             <div className='pt-[10%]'>
