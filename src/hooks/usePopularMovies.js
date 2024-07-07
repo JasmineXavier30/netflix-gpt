@@ -1,18 +1,19 @@
 import { useEffect } from "react";
-import { TMDB_API_OPTIONS } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { TMDB_API_OPTIONS, TMDB_POPULAR_MOVIES_URL } from "../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
 import { addPopularMovies } from "../utils/movieSlice";
 
 const usePopularMovies = () => {
 
     const dispatch = useDispatch();
+    const popularMovies = useSelector(store => store.moviesReducer.popularMovies)
 
     useEffect(() => {
-        getPopularMovieList();
+        !popularMovies && getPopularMovieList();
     }, []);
 
     const getPopularMovieList = async () => {
-        const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', TMDB_API_OPTIONS);
+        const response = await fetch(TMDB_POPULAR_MOVIES_URL, TMDB_API_OPTIONS);
         if (response) {
             const movieList = await response.json();
             dispatch(addPopularMovies(movieList.results))

@@ -7,8 +7,7 @@ const MainContainer = () => {
     const movies = useSelector(store => store.moviesReducer?.nowPlayingMovies); // 20 movies
 
     if (!movies) return;
-    const mainMovie = movies[0];
-
+    const mainMovie = movies[4];
     const { original_title, overview, id } = mainMovie;
 
     return (
@@ -18,5 +17,4 @@ const MainContainer = () => {
         </div>
     )
 }
-
 export default MainContainer;

@@ -11,8 +11,11 @@ export const TMDB_API_OPTIONS = {
         Authorization: `Bearer ${process.env.REACT_APP_TMDB_KEY}`
     }
 }
-
 export const TMDB_IMG_CDN_URL = "https://image.tmdb.org/t/p/w500/";
+
+export const TMDB_POPULAR_MOVIES_URL = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+
+export const TMDB_NOWPLAYING_MOVIES_URL = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
 
 export const SUPPORTED_LANGS = [{ id: "en", name: "English" }, { id: "hi", name: "Hindi" }, { id: "es", name: "Spanish" }];
 
