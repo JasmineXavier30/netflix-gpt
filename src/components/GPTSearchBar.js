@@ -17,30 +17,34 @@ function GPTSearchBar() {
         dispatch(addGPTSearchText(searchTextVal));
 
         // make openAI GPT API call and get movie results
-        const gptQuery = `Act as a movie recommendation system and suggest some movies for the query ${searchTextVal}. Only give me names of 5 movies, comma separated like the example result given ahead. Example Result: Don, Run, Mila, Pink, Ghilli.`
+        const gptQuery = `Act as a movie recommendation system and suggest some movies for the query ${searchTextVal}. Only give me names of 10 movies, comma separated like the example result given ahead. Example Result: Don, Run, Mila, Pink, Ghilli.`
 
         let gptResults;
         try {
             // billing issue. so mocking results for now.
-            gptResults = await openai.chat.completions.create({
+            /* gptResults = await openai.chat.completions.create({
                 messages: [{ role: "user", content: gptQuery }],
                 model: "gpt-3.5-turbo",
-            }); 
+            }); */
         } catch (e) {
             console.log("OpenAI API issue: ", e)
         }
         //console.log(gptResults.choices)
         let gptMovieNames;
         if (!gptResults || !gptResults.choices) { //fallback values
-            gptMovieNames = ["Lord of the Rings", "Terminator", "Bat Man", "Twilight Saga", "Interstellar"]
+            gptMovieNames = ["Interstellar", "Dunkirk", "Oppenheimer", "Titanic", "Memento", "Avatar"]
         }
         else gptMovieNames = gptResults?.choices?.[0]?.message?.content.split(",");
-        //console.log(gptMovieNames)
+        gptMovieNames = gptMovieNames.map(x => x.toLowerCase().trim());
+        console.log("gptMovieNames::", gptMovieNames)
         //For each movie search TMDB API and display poster
         const moviesPromiseArr = gptMovieNames.map(x => searchMoviesInTMDB(x)); // -> [Promise, Promise...]
         let tmdbMoviesList = await Promise.all(moviesPromiseArr);
-        //console.log(tmdbMoviesList)
-        dispatch(addGptMovieResultsFromTMDB({ gptMovieNames, gptMovieResultsFromTMDB: tmdbMoviesList }));
+        tmdbMoviesList = tmdbMoviesList.flat();
+        console.log("tmdbMoviesList::", tmdbMoviesList)
+        let exactMoviesList = tmdbMoviesList.filter(x => gptMovieNames.includes((x.title || '').toLowerCase().trim()));
+        console.log("exactMoviesList::", exactMoviesList)
+        dispatch(addGptMovieResultsFromTMDB({ gptMovieNames, gptMovieResultsFromTMDB: [exactMoviesList] }));
     }
 
     const searchMoviesInTMDB = async (movieName) => {
@@ -53,7 +57,7 @@ function GPTSearchBar() {
 
     return (
         <div className='z-10'>
-            <form className=' bg-black w-1/2 mx-auto grid grid-cols-12 z-10 bg-opacity-80' onSubmit={e => e.preventDefault()}>
+            <form className=' bg-black w-5/6 md:w-1/2 mx-auto grid grid-cols-12 z-10 bg-opacity-80' onSubmit={e => e.preventDefault()}>
                 <input ref={searchText} type="text" className='p-4 m-4 col-span-9 rounded' placeholder={lang[langConfig].placeholder} />
                 <button className='px-4 py-2 m-4 rounded bg-red-700 text-white col-span-3 font-bold hover:bg-opacity-80' onClick={handleGPTSearchClick}>{lang[langConfig].search}</button>
             </form>

@@ -13,3 +13,6 @@
     display: none;
     /* for Chrome, Safari, and Opera */
 }
+.scroll-container {
+    scroll-behavior: smooth;
+}

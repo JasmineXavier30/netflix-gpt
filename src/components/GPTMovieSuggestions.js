@@ -9,7 +9,10 @@ function GPTMovieSuggestions(props) {
         <div className='z-10 mt-4 mx-4'>
             <div className='bg-black z-10 bg-opacity-90 '>
                 {
-                    gptMovieNames && gptMovieNames.map((movie, index) => <MovieList key={movie} title={movie} movies={gptMovieResultsFromTMDB[index]} />)
+                    /** key can be index in this case as there will be no operation on this array */
+                    //gptMovieNames && gptMovieNames.map((movie, index) => <MovieList key={index} title={movie} movies={gptMovieResultsFromTMDB[index]} />)
+
+                    gptMovieResultsFromTMDB && <MovieList title={"Search Results"} movies={gptMovieResultsFromTMDB[0]} />
                 }
             </div>
         </div>

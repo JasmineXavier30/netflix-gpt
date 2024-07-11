@@ -17,6 +17,10 @@ export const TMDB_POPULAR_MOVIES_URL = "https://api.themoviedb.org/3/movie/popul
 
 export const TMDB_NOWPLAYING_MOVIES_URL = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
 
+export const TMDB_TOPRATED_MOVIES_URL = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+
+export const TMDB_UPCOMING_MOVIES_URL = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+
 export const SUPPORTED_LANGS = [{ id: "en", name: "English" }, { id: "hi", name: "Hindi" }, { id: "es", name: "Spanish" }];
 
 export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;

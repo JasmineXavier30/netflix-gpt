@@ -7,9 +7,9 @@ function GPTSearchPage(props) {
     return (
         <div className=''>
             <div className="fixed -z-10 ">
-                <img src={BG_IMG} alt="Background" className=" w-screen h-screen" />
+                <img src={BG_IMG} alt="Background" className="object-cover w-screen h-screen" />
             </div>
-            <div className='pt-[10%]'>
+            <div className='pt-[35%] md:pt-[10%]'>
                 <GPTSearchBar />
                 <GPTMovieSuggestions />
             </div>

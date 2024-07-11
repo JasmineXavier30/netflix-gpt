@@ -4,14 +4,14 @@ import VideoBackground from "./VideoBackground";
 
 const MainContainer = () => {
 
-    const movies = useSelector(store => store.moviesReducer?.nowPlayingMovies); // 20 movies
+    const movies = useSelector(store => store.moviesReducer?.upcomingMovies); // 20 movies
 
     if (!movies) return;
-    const mainMovie = movies[4];
+    const mainMovie = movies[0];
     const { original_title, overview, id } = mainMovie;
 
     return (
-        <div className="">
+        <div className="relative w-full max-w-full overflow-hidden">
             <VideoTitle title={original_title} overview={overview} />
             <VideoBackground movieId={id} /> 
         </div>
