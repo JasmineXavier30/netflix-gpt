@@ -5,8 +5,8 @@ const SecondaryContainer = () => {
     const movies = useSelector(store => store.moviesReducer);
     return (
         movies &&
-        <div className="bg-black">
-                <div className="md:-mt-72">
+        <div className="bg-black bg-opacity-90">
+            <div className="lg:-mt-60 md:-mt-48" >
                     <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
                     <MovieList title={"Popular"} movies={movies.popularMovies} />
                     <MovieList title={"Top Rated"} movies={movies.topRatedMovies} />

@@ -56,10 +56,10 @@ function GPTSearchBar() {
     const langConfig = useSelector(store => store.configReducer.lang);
 
     return (
-        <div className='z-10'>
-            <form className=' bg-black w-5/6 md:w-1/2 mx-auto grid grid-cols-12 z-10 bg-opacity-80' onSubmit={e => e.preventDefault()}>
-                <input ref={searchText} type="text" className='p-4 m-4 col-span-9 rounded' placeholder={lang[langConfig].placeholder} />
-                <button className='px-4 py-2 m-4 rounded bg-red-700 text-white col-span-3 font-bold hover:bg-opacity-80' onClick={handleGPTSearchClick}>{lang[langConfig].search}</button>
+        <div className='z-10 mx-2 md:mx-auto'>
+            <form className=' bg-black md:w-1/2 mx-auto grid grid-cols-12 z-10 bg-opacity-80' onSubmit={e => e.preventDefault()}>
+                <input ref={searchText} type="text" className='md:p-4 md:m-4 m-2 p-2 col-span-9 rounded' placeholder={lang[langConfig].placeholder} />
+                <button className='md:p-4 md:m-4 m-2 p-2 rounded bg-red-700 text-white col-span-3 font-bold hover:bg-opacity-80' onClick={handleGPTSearchClick}>{lang[langConfig].search}</button>
             </form>
         </div>
     );
