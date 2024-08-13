@@ -22,10 +22,10 @@ function GPTSearchBar() {
         let gptResults;
         try {
             // billing issue. so mocking results for now.
-            /* gptResults = await openai.chat.completions.create({
+            gptResults = await openai.chat.completions.create({
                 messages: [{ role: "user", content: gptQuery }],
                 model: "gpt-3.5-turbo",
-            }); */
+            });
         } catch (e) {
             console.log("OpenAI API issue: ", e)
         }
