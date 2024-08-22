@@ -36,14 +36,11 @@ function GPTSearchBar() {
         }
         else gptMovieNames = gptResults?.choices?.[0]?.message?.content.split(",");
         gptMovieNames = gptMovieNames.map(x => x.toLowerCase().trim());
-        console.log("gptMovieNames::", gptMovieNames)
         //For each movie search TMDB API and display poster
         const moviesPromiseArr = gptMovieNames.map(x => searchMoviesInTMDB(x)); // -> [Promise, Promise...]
         let tmdbMoviesList = await Promise.all(moviesPromiseArr);
         tmdbMoviesList = tmdbMoviesList.flat();
-        console.log("tmdbMoviesList::", tmdbMoviesList)
         let exactMoviesList = tmdbMoviesList.filter(x => gptMovieNames.includes((x.title || '').toLowerCase().trim()));
-        console.log("exactMoviesList::", exactMoviesList)
         dispatch(addGptMovieResultsFromTMDB({ gptMovieNames, gptMovieResultsFromTMDB: [exactMoviesList] }));
     }
 
